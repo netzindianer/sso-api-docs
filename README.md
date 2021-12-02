@@ -31,11 +31,13 @@ X-Client-User-Agent: {{client_user_agent}}
 
 ```
 
-Request with Curl:
+Request with curl:
 ```shell
 curl \
  -X POST \
  -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
  -d '{"email": "{{email}}","password": "{{password}}"}'\
  '{{uri}}/api/auth/token'
 ```
@@ -59,13 +61,17 @@ Request:
 ```http
 GET {{uri}}/api/users/me
 Authorization: Bearer {{user_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
 ```
 
-Request with Curl:
+Request with curl:
 ```shell
 curl \
  -H 'Authorization: Bearer {{user_token}}'\
- '{{uri}}/api/users/me'
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+'{{uri}}/api/users/me'
 ```
 
 Response:
