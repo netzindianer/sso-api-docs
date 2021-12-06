@@ -42,6 +42,15 @@ X-Client-Ip: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
 
+Request with curl:
+```shell
+curl\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users'
+```
+
 Response:
 ```http
 HTTP/1.1 200 OK
@@ -99,9 +108,6 @@ HTTP/1.1 200 OK
 }
 ```
 
-
-
-
 ### POST /api/users
 
 Create user
@@ -120,6 +126,17 @@ X-Client-User-Agent: {{client_user_agent}}
     "last_name": "usersurname",
     "active": true
 }
+```
+
+Request with curl:
+```shell
+curl\
+ -X POST\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"email": "john.doe@example.com","password": "password1!","first_name": "username","last_name": "usersurname","active": true}'\
+ '{{uri}}/api/users'
 ```
 
 Response:
@@ -172,6 +189,15 @@ X-Client-Ip: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
 
+Request with curl:
+```shell
+curl\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users/{{id}}'
+```
+
 Response:
 ```http
 HTTP/1.1 200 OK
@@ -202,8 +228,6 @@ HTTP/1.1 200 OK
 }
 ```
 
-
-
 ### GET /api/users/me
 
 Fetch me
@@ -220,11 +244,11 @@ X-Client-User-Agent: {{client_user_agent}}
 
 Request with curl:
 ```shell
-curl \
+curl\
  -H 'Authorization: Bearer {{user_token}}'\
  -H 'X-Client-Ip: {{client_ip}}'\
  -H 'X-Client-User-Agent: {{client_user_agent}}'\
-'{{uri}}/api/users/me'
+ '{{uri}}/api/users/me'
 ```
 
 Response:
@@ -257,8 +281,6 @@ HTTP/1.1 200 OK
 }
 ```
 
-
-
 ### PATCH /api/users/{{id}}
 
 Update user
@@ -275,6 +297,17 @@ X-Client-User-Agent: {{client_user_agent}}
 {
     "active": true
 }
+```
+
+Request with curl:
+```shell
+curl\
+ -X PATCH\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"active": true}'\
+ '{{uri}}/users/{{id}}'
 ```
 
 Response:
@@ -301,6 +334,16 @@ X-Client-Ip: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
 
+Request with curl:
+```shell
+curl\
+ -X DELETE\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/users/{{id}}'
+```
+
 Response:
 ```http
 HTTP/1.1 200 OK
@@ -309,8 +352,6 @@ HTTP/1.1 200 OK
   "success": true
 }
 ```
-
-
 
 ## Auth
 
@@ -336,8 +377,8 @@ X-Client-User-Agent: {{client_user_agent}}
 
 Request with curl:
 ```shell
-curl \
- -X POST \
+curl\
+ -X POST\
  -H 'Authorization: Bearer {{admin_token}}'\
  -H 'X-Client-Ip: {{client_ip}}'\
  -H 'X-Client-User-Agent: {{client_user_agent}}'\
@@ -357,9 +398,6 @@ HTTP/1.1 200 OK
   }
 }
 ```
-
-
-
 
 ## Use cases
 
