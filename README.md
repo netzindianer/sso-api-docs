@@ -1,5 +1,3 @@
-# SSO API Docs
-
 - [Introduction](#introduction)
 - [Resources](#resources)
   - [Users](#users)
@@ -14,7 +12,7 @@
 - [Use cases](#use-cases)
   - [Get user by email and password](#get-user-by-email-and-password)
 
-## Introduction
+# Introduction
 
 1. REST API
 
@@ -29,11 +27,11 @@
 - `X-Client-Ip: {{client_ip}}` - http header, front user ip,
 - `X-Client-User-Agent: {{client_user_agent}}` http header, front user agent
 
-## Resources
+# Resources
 
-### Users
+## Users
 
-#### GET /api/users
+### GET /api/users
 
 List users
 
@@ -105,7 +103,7 @@ HTTP/1.1 200 OK
 
 
 
-#### POST /api/users
+### POST /api/users
 
 Create user
 
@@ -161,7 +159,7 @@ HTTP/1.1 400 Bad Request
 }
 ```
 
-#### GET /api/users/{{id}}
+### GET /api/users/{{id}}
 
 Fetch user
 
@@ -207,7 +205,7 @@ HTTP/1.1 200 OK
 
 
 
-#### GET /api/users/me
+### GET /api/users/me
 
 Fetch me
 
@@ -262,7 +260,7 @@ HTTP/1.1 200 OK
 
 
 
-#### PATCH /api/users/{{id}}
+### PATCH /api/users/{{id}}
 
 Update user
 
@@ -290,7 +288,7 @@ HTTP/1.1 200 OK
 }
 ```
 
-#### DELETE /api/users/{{id}}
+### DELETE /api/users/{{id}}
 
 Delete user
 
@@ -315,9 +313,9 @@ HTTP/1.1 200 OK
 
 
 
-### Auth
+## Auth
 
-#### POST /api/auth/token
+### POST /api/auth/token
 
 Get user token by email and password
 
@@ -364,9 +362,9 @@ HTTP/1.1 200 OK
 
 
 
-## Use cases
+# Use cases
 
-### Get user by email and password
+## Get user by email and password
 
 1. Use [POST /api/auth/token](#post-api-auth-token) to get `{{user_token}}`
 2. Use [GET /api/users/me](#get-api-users-me) to get user
