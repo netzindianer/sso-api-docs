@@ -403,5 +403,5 @@ HTTP/1.1 200 OK
 
 ### Get user by email and password
 
-1. Use [POST /api/auth/token](#post-api-auth-token) to get `{{user_token}}`
-2. Use [GET /api/users/me](#get-api-users-me) to get user
+1. Use [POST /api/auth/token](#post-apiauthtoken) to get `{{user_token}}`
+2. Use [GET /api/users/me](#get-apiusersme) to get user
