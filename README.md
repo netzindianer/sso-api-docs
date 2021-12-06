@@ -1,18 +1,19 @@
+# SSO API Docs
+
 - [Introduction](#introduction)
-- [Resources](#resources)
-  - [Users](#users)
-    - [GET /api/users](#get-apiusers)
-    - [POST /api/users](#post-apiusers)
-    - [GET /api/users/{{id}}](#get-apiusersid)
-    - [GET /api/users/me](#get-apiusersme)
-    - [PATCH /api/users/{{id}}](#patch-apiusersid)
-    - [DELETE /api/users/{{id}}](#delete-apiusersid)
-  - [Auth](#auth)
-    - [POST /api/auth/token](#post-apiauthtoken)
+- [Users](#users)
+  - [GET /api/users](#get-apiusers)
+  - [POST /api/users](#post-apiusers)
+  - [GET /api/users/{{id}}](#get-apiusersid)
+  - [GET /api/users/me](#get-apiusersme)
+  - [PATCH /api/users/{{id}}](#patch-apiusersid)
+  - [DELETE /api/users/{{id}}](#delete-apiusersid)
+- [Auth](#auth)
+  - [POST /api/auth/token](#post-apiauthtoken)
 - [Use cases](#use-cases)
   - [Get user by email and password](#get-user-by-email-and-password)
 
-# Introduction
+## Introduction
 
 1. REST API
 
@@ -26,8 +27,6 @@
 - `Authorization: Bearer {{token}}` - http header, `{{admin_token}}` or `{{user_token}}`
 - `X-Client-Ip: {{client_ip}}` - http header, front user ip,
 - `X-Client-User-Agent: {{client_user_agent}}` http header, front user agent
-
-# Resources
 
 ## Users
 
@@ -362,9 +361,9 @@ HTTP/1.1 200 OK
 
 
 
-# Use cases
+## Use cases
 
-## Get user by email and password
+### Get user by email and password
 
 1. Use [POST /api/auth/token](#post-api-auth-token) to get `{{user_token}}`
 2. Use [GET /api/users/me](#get-api-users-me) to get user
