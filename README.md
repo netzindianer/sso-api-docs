@@ -422,8 +422,6 @@ HTTP/1.1 200 OK
 }
 ```
 
-`{{activation_token}}` - token required to activate registred user
-
 There are 3 ways to activate user:
 1. The most standard way is to set `_activation_email` to `true` in this endpoint.
 Then the email will be sent to user.
