@@ -381,7 +381,7 @@ X-Client-User-Agent: {{client_user_agent}}
     "password": "useruser1!",
     "first_name": "John",
     "last_name": "Doe",
-    "_activation_mail": true
+    "_activation_email": true
 }
 ```
 
@@ -399,7 +399,7 @@ curl\
  -H 'Authorization: Bearer {{admin_token}}'\
  -H 'X-Client-Ip: {{client_ip}}'\
  -H 'X-Client-User-Agent: {{client_user_agent}}'\
- -d '{"email": "{{email}}","password": "useruser1!","first_name": "John","last_name": "Doe","_activation_mail": true}'\
+ -d '{"email": "{{email}}","password": "useruser1!","first_name": "John","last_name": "Doe","_activation_email": true}'\
  '{{uri}}/api/auth'
 ```
 
