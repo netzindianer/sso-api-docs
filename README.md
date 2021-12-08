@@ -394,10 +394,14 @@ HTTP/1.1 200 OK
 {
   "success": true,
   "data": {
-    "token": "{{user_token}}"
+    "token": "{{user_token}}",
+    "id": "{{id}}"
   }
 }
 ```
+
+`{{user_token}}` - authorization token to api on user level
+`{{id}}` - user id
 
 ## Use cases
 
