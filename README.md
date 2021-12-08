@@ -1,5 +1,7 @@
 # SSO API Docs
 
+[ACOMA SSO](https://www.netzindianer.net/acoma/single-sign-on-system.html) by [Netzindianer](https://www.netzindianer.net/)
+
 - [Introduction](#introduction)
 - [Users](#users)
   - [GET /api/users](#get-apiusers)
@@ -9,6 +11,8 @@
   - [PATCH /api/users/{{id}}](#patch-apiusersid)
   - [DELETE /api/users/{{id}}](#delete-apiusersid)
 - [Auth](#auth)
+  - [POST /api/auth](#post-apiauth)
+  - [PUT /api/auth/activation](#put-apiauthactivation)
   - [POST /api/auth/token](#post-apiauthtoken)
 - [Use cases](#use-cases)
   - [Get user by email and password](#get-user-by-email-and-password)
@@ -29,6 +33,9 @@
 - `X-Client-User-Agent: {{client_user_agent}}` http header, front user agent
 
 ## Users
+
+Users is a low level layer of users resource.
+Simple CRUD operations without any logic.
 
 ### GET /api/users
 
@@ -354,6 +361,116 @@ HTTP/1.1 200 OK
 ```
 
 ## Auth
+
+Authentication is a higher layer build over Users resource.
+It deals with user registration, activation and login.
+
+### POST /api/auth
+
+Register user
+
+Request:
+```http
+POST {{uri}}/api/auth
+Authorization: Bearer {{admin_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "email": "{{email}}",
+    "password": "useruser1!",
+    "first_name": "John",
+    "last_name": "Doe",
+    "_activation_mail": true
+}
+```
+
+`first_name` - optional
+`last_name` - optional
+`_activation_email` - optional, bool, default false, when is sets to `true` then the activation mail with be sent
+
+The endpoint don't have `active` field.
+Registred users are not active.
+
+Request with curl:
+```shell
+curl\
+ -X POST\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"email": "{{email}}","password": "useruser1!","first_name": "John","last_name": "Doe","_activation_mail": true}'\
+ '{{uri}}/api/auth'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": {
+    "activation": "{{activation_token}}"
+  },
+  "links": {
+    "activation": {
+      "href": "{{uri}}/api/auth/activation",
+      "method": "PUT"
+    }
+  }
+}
+```
+
+`{{activation_token}}` - token required to activate registred user
+
+There are 3 ways to activate user:
+1. The most standard way is to set `_activation_email` to `true` in this endpoint.
+Then the email will be sent to user.
+User will click to activation link in email and will be activated.
+2. Use `{{activation_token}}` from response and call [PUT /api/auth/activation](#put-apiauthactivation)
+3. Call [PATCH /api/users/{{id}}](#patch-apiusersid) and set field `active` to `true`
+
+
+### PUT /api/auth/activation
+
+Activate registred user using `{{activation_token}}`.
+
+`{{activation_token}}` is from [POST /api/auth](#post-apiauth) response
+
+Request:
+```http
+PUT {{uri}}/api/auth/activation
+Authorization: Bearer {{admin_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "token": "{{activation_token}}"
+}
+```
+
+Request with curl:
+```shell
+curl\
+ -X PUT\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"token": "{{activation_token}}"}'\
+ '{{uri}}/api/auth/activation'
+```
+
+Resepone:
+```
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true
+}
+```
+
 
 ### POST /api/auth/token
 
