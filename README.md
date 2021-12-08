@@ -239,7 +239,7 @@ HTTP/1.1 200 OK
 
 Fetch me
 
-- `{{user_token}}` is necessary
+`{{user_token}}` is necessary
 
 Request:
 ```http
@@ -386,8 +386,10 @@ X-Client-User-Agent: {{client_user_agent}}
 ```
 
 `first_name` - optional
+
 `last_name` - optional
-`_activation_email` - optional, bool, default false, when is sets to `true` then the activation mail with be sent
+
+`_activation_email` - optional, bool, default false, when is sets to `true` then the activation mail will be sent
 
 The endpoint don't have `active` field.
 Registred users are not active.
@@ -475,6 +477,7 @@ HTTP/1.1 200 OK
 Get user token by email and password
 
 `{{email}}` - user email
+
 `{{password}}` - user password
 
 Request:
@@ -516,6 +519,7 @@ HTTP/1.1 200 OK
 ```
 
 `{{user_token}}` - authorization token to api on user level
+
 `{{id}}` - user id
 
 ## Use cases
