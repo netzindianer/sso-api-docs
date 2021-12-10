@@ -401,7 +401,7 @@ X-Client-User-Agent: {{client_user_agent}}
 
 `_activation_email` - optional, bool, default false, when is sets to `true` then the activation mail will be sent
 
-`_activation_optins` - optional, array, list of optins that will be recorded user when activication will by finalized, more info in [Optins](#optins) section
+`_activation_optins` - optional, array, list of optins that will be recorded when activication will by finalized, more info in [Optins](#optins) section
 
 The endpoint don't have `active` field.
 Registred users are not active.
@@ -562,7 +562,7 @@ X-Client-User-Agent: {{client_user_agent}}
 - `agreement_type` - optional, string, available values `default`, `auto`, default value `default`
   - `default` - When user have an option to not agree for the optin. Usually, when there is a checkbox in UI for the optin and user can proceed without checkin it.
   - `auto` - When user can not have an option for disagree.
-- `source` - optional, string, addional param to track optin source eg. `osc:order:2356`
+- `source` - optional, string, additional param to track optin source eg. `osc:order:2356`
 
 Request with curl:
 ```shell
