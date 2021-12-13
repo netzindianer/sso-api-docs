@@ -548,7 +548,7 @@ List attributes of all users
 Request:
 ```http request
 GET {{uri}}/api/attributes
-Authorization Bearer {{admin_token}}
+Authorization: Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
@@ -600,7 +600,7 @@ List attributes of specific user
 Request:
 ```http request
 GET {{uri}}/api/users/{{id}}/attributes
-Authorization Bearer {{admin_token}}
+Authorization: Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
@@ -647,7 +647,7 @@ Insert or update user attribute
 Request:
 ```http request
 PUT {{uri}}/api/users/{{id}}/attributes/{{name}}
-Authorization Bearer {{admin_token}}
+Authorization: Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 
@@ -690,7 +690,7 @@ Delete user attribute
 Request:
 ```http request
 DELETE {{uri}}/api/users/{id}/attributes/{name}
-Authorization Bearer {{admin_token}}
+Authorization: Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
 ```
