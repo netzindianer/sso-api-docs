@@ -534,6 +534,182 @@ HTTP/1.1 200 OK
 
 `{{id}}` - user id
 
+## Attributes
+
+### GET /api/attributes
+
+List attributes of all users
+
+Request:
+```http
+GET {{uri}}/api/attributes
+Authorization Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request with curl:
+```shell
+curl\
+ -X GET\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/attributes'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": [
+    {
+      "name": "post_code",
+      "value": "00000",
+      "user.id": "16",
+      "links": {
+        ...
+      }
+    }
+    ...
+  ],
+  "meta": {
+    "page": 1,
+    "perPage": 10,
+    "total": 16,
+    "sort": "name",
+    "predicate": [],
+  }
+}
+```
+
+### GET /api/users/{{id}}/attributes
+
+List attributes of specific user
+
+`{{id}}` - user id
+
+Request:
+```http
+GET {{uri}}/api/users/{{id}}/attributes
+Authorization Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request with curl:
+```shell
+curl\
+ -X GET\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users/{{id}}/attributes'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": [
+    {
+      "name": "post_code",
+      "value": "00000",
+      "user.id": "16"
+    }
+    ...
+  ],
+  "links": {
+    ...
+  }
+}
+```
+
+### PUT /api/users/{{id}}/attributes/{{name}}
+
+Insert or update user attribute
+
+`{{id}}` - user id
+
+`{{name}}` - attribute name
+
+Request:
+```http
+PUT {{uri}}/api/users/{{id}}/attributes/{{name}}
+Authorization Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "value": "00000"
+}
+```
+
+- `value` - required, string, attribute value
+
+Request curl:
+```shell
+curl\
+ -X PUT\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"value":"00000"}'\
+ '{{uri}}/api/users/{{id}}/attributes/{{name}}'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true
+}
+```
+
+### DELETE /api/users/{{id}}/attributes/{{name}}
+
+Delete user attribute
+
+- `{{id}}` user id
+
+- `{{name}}` - attribute name
+
+Request:
+```http
+DELETE {{uri}}/api/users/{id}/attributes/{name}
+Authorization Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request curl:
+```shell
+curl\
+ -X DELETE\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users/{{id}}/attributes/{{name}}'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+}
+```
+
 ## Optins
 
 ### POST /api/users/{{id}}/optins
