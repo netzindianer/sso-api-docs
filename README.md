@@ -546,7 +546,7 @@ HTTP/1.1 200 OK
 List attributes of all users
 
 Request:
-```http
+```json
 GET {{uri}}/api/attributes
 Authorization Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
@@ -598,7 +598,7 @@ List attributes of specific user
 `{{id}}` - user id
 
 Request:
-```http
+```json
 GET {{uri}}/api/users/{{id}}/attributes
 Authorization Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
@@ -645,7 +645,7 @@ Insert or update user attribute
 `{{name}}` - attribute name
 
 Request:
-```http
+```json
 PUT {{uri}}/api/users/{{id}}/attributes/{{name}}
 Authorization Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
@@ -688,7 +688,7 @@ Delete user attribute
 - `{{name}}` - attribute name
 
 Request:
-```http
+```json
 DELETE {{uri}}/api/users/{id}/attributes/{name}
 Authorization Bearer {{admin_token}}
 X-Client-IP: {{client_ip}}
