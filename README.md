@@ -724,7 +724,7 @@ Record new optin agreement or no agreement
 `{{id}}` - user id
 
 Request:
-```json=
+```http
 POST {{uri}}/api/users/{{id}}/optins
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
@@ -773,7 +773,7 @@ List optins record logs
 `{{id}}` - user id
 
 Request:
-```json=
+```http
 GET {{uri}}/api/users/{{id}}/optins
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
@@ -829,7 +829,7 @@ Lists all consented optins
 `{{id}}` - user id
 
 Request:
-```json=
+```http
 GET {{uri}}/api/users/{{id}}/optins/log
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
