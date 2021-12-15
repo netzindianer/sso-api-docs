@@ -119,7 +119,7 @@ HTTP/1.1 200 OK
     "perPage": 10,
     "total": 28,
     "sort": "created_at",
-    "predicate": []
+    "filter": []
   }
 }
 ```
@@ -586,7 +586,7 @@ HTTP/1.1 200 OK
     "perPage": 10,
     "total": 16,
     "sort": "name",
-    "predicate": [],
+    "filter": [],
   }
 }
 ```
@@ -816,7 +816,7 @@ HTTP/1.1 200 OK
     "perPage": 10,
     "total": 11,
     "sort": "created_at",
-    "predicate": []
+    "filter": []
   }
 }
 
