@@ -14,6 +14,7 @@
   - [POST /api/auth](#post-apiauth)
   - [PUT /api/auth/activation](#put-apiauthactivation)
   - [POST /api/auth/token](#post-apiauthtoken)
+  - [DELETE /api/auth/token](#delete-apiauthtoken)
 - [Optins](#optins)
   - [POST /api/users/{{id}}/optins](#post-apiusersidoptins)
   - [GET /api/users/{{id}}/optins](#get-apiusersidoptins)
@@ -533,6 +534,45 @@ HTTP/1.1 200 OK
 `{{user_token}}` - authorization token to api on user level
 
 `{{id}}` - user id
+
+### DELETE /api/auth/token
+
+Delete user token by token secret key
+
+`{{token}}` - token secret key
+
+Request:
+```http
+DELETE {{uri}}/api/auth/token
+Authorization: Bearer {{admin_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "token": "{{token}}",
+}
+```
+
+Request with curl:
+```shell
+curl\
+ -X POST\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"delete": "{{delete}}"'\
+ '{{uri}}/api/auth/token'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+}
+```
 
 ## Optins
 
