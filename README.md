@@ -537,9 +537,9 @@ HTTP/1.1 200 OK
 
 ### DELETE /api/auth/token
 
-Delete user token by token secret key
+Delete user token
 
-`{{token}}` - token secret key
+`{{token}}` - user token
 
 Request:
 ```http
