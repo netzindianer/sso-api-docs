@@ -535,6 +535,54 @@ HTTP/1.1 200 OK
 
 `{{id}}` - user id
 
+### POST /api/auth/token
+
+Get user token by user id
+
+`{{id}}` - user id
+
+Request:
+```http
+POST {{uri}}/api/auth/token
+Authorization: Bearer {{admin_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "grant_type": "id",
+    "id": "{{id}}"
+}
+```
+
+Request with curl:
+```shell
+curl\
+ -X POST\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"grant_type": "id", "id": "{{id}}"}'\
+ '{{uri}}/api/auth/token'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": {
+    "token": "{{user_token}}",
+    "id": "{{id}}"
+  }
+}
+```
+
+`{{user_token}}` - authorization token to api on user level
+
+`{{id}}` - user id
+
 ### DELETE /api/auth/token
 
 Delete user token
