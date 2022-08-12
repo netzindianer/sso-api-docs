@@ -805,53 +805,6 @@ HTTP/1.1 200 OK
 
 ## Optins
 
-### POST /api/users/{{id}}/optins
-
-Record new optin agreement
-
-`{{id}}` - user id
-
-Request:
-```http
-POST {{uri}}/api/users/{{id}}/optins
-Authorization: Bearer {{admin_token}}
-X-Client-Ip: {{client_ip}}
-X-Client-User-Agent: {{client_user_agent}}
-
-{
-    "key": "mail",
-    "agreement_type": "default",
-    "source": "sso:front:register"
-}
-```
-
-- `key` - required, string, optin key eg. tel, email
-- `agreement_type` - optional, string, available values `default`, `auto`, default value `default`
-  - `default` - When user have an option to not agree for the optin. Usually, when there is a checkbox in UI for the optin and user can proceed without checkin it.
-  - `auto` - When user can not have an option for disagree.
-- `source` - optional, string, additional param to track optin source eg. `osc:order:2356`
-
-Request with curl:
-```shell
-curl\
- -X POST\
- -H 'Authorization: Bearer {{admin_token}}'\
- -H 'X-Client-Ip: {{client_ip}}'\
- -H 'X-Client-User-Agent: {{client_user_agent}}'\
- -d '{"key":"mail","agreement_type":"default","source":"sso:front:register"}'\
- '{{uri}}/api/users/{{id}}/optins'
-```
-
-Response:
-```http
-HTTP/1.1 201 Created
-...
-
-{
-  "success": true,
-}
-```
-
 ### GET /api/users/{{id}}/optins
 
 List optins record logs
