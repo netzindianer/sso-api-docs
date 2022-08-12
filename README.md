@@ -15,10 +15,15 @@
   - [PUT /api/auth/activation](#put-apiauthactivation)
   - [POST /api/auth/token](#post-apiauthtoken)
   - [DELETE /api/auth/token](#delete-apiauthtoken)
+- [Attributes](#attributes)
+  - [GET /api/attributes](#get-apiattributes)
+  - [GET /api/users/{{id}}/attributes](#get-apiusersidattributes)
+  - [PUT /api/users/{{id}}/attributes/{{name}}](#put-apiusersidattributesname)
+  - [DELETE /api/users/{{id}}/attributes/{{name}}](#delete-apiusersidattributesname)
 - [Optins](#optins)
-  - [POST /api/users/{{id}}/optins](#post-apiusersidoptins)
   - [GET /api/users/{{id}}/optins](#get-apiusersidoptins)
-  - [GET /api/users/{{id}}/optins/agreement](#get-apiusersidoptinsagreement)
+  - [PUT /api/users/{{id}}/optins/{{key}}](#put-apiusersidoptinskey)
+  - [GET /api/users/{{id}}/optins/{{key}}](#delete-apiusersidoptinskey)
 - [Use cases](#use-cases)
   - [Get user by email and password](#get-user-by-email-and-password)
 
@@ -622,6 +627,182 @@ HTTP/1.1 200 OK
 }
 ```
 
+## Attributes
+
+### GET /api/attributes
+
+List attributes of all users
+
+Request:
+```http
+GET {{uri}}/api/attributes
+Authorization: Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request with curl:
+```shell
+curl\
+ -X GET\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/attributes'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": [
+    {
+      "name": "post_code",
+      "value": "00000",
+      "user.id": "16",
+      "links": {
+        ...
+      }
+    }
+    ...
+  ],
+  "meta": {
+    "page": 1,
+    "perPage": 10,
+    "total": 16,
+    "sort": "name",
+    "filter": [],
+  }
+}
+```
+
+### GET /api/users/{{id}}/attributes
+
+List attributes of specific user
+
+`{{id}}` - user id
+
+Request:
+```http
+GET {{uri}}/api/users/{{id}}/attributes
+Authorization: Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request with curl:
+```shell
+curl\
+ -X GET\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users/{{id}}/attributes'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+  "data": [
+    {
+      "name": "post_code",
+      "value": "00000",
+      "user.id": "16"
+    }
+    ...
+  ],
+  "links": {
+    ...
+  }
+}
+```
+
+### PUT /api/users/{{id}}/attributes/{{name}}
+
+Insert or update user attribute
+
+`{{id}}` - user id
+
+`{{name}}` - attribute name
+
+Request:
+```http
+PUT {{uri}}/api/users/{{id}}/attributes/{{name}}
+Authorization: Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "value": "00000"
+}
+```
+
+- `value` - required, string, attribute value
+
+Request curl:
+```shell
+curl\
+ -X PUT\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"value":"00000"}'\
+ '{{uri}}/api/users/{{id}}/attributes/{{name}}'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true
+}
+```
+
+### DELETE /api/users/{{id}}/attributes/{{name}}
+
+Delete user attribute
+
+- `{{id}}` user id
+
+- `{{name}}` - attribute name
+
+Request:
+```http
+DELETE {{uri}}/api/users/{id}/attributes/{name}
+Authorization: Bearer {{admin_token}}
+X-Client-IP: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+```
+
+Request curl:
+```shell
+curl\
+ -X DELETE\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ '{{uri}}/api/users/{{id}}/attributes/{{name}}'
+```
+
+Response:
+```http
+HTTP/1.1 200 OK
+...
+
+{
+  "success": true,
+}
+```
+
 ## Optins
 
 ### POST /api/users/{{id}}/optins
@@ -631,7 +812,7 @@ Record new optin agreement or no agreement
 `{{id}}` - user id
 
 Request:
-```json=
+```http
 POST {{uri}}/api/users/{{id}}/optins
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
@@ -680,7 +861,7 @@ List optins record logs
 `{{id}}` - user id
 
 Request:
-```json=
+```http
 GET {{uri}}/api/users/{{id}}/optins
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
@@ -706,9 +887,6 @@ HTTP/1.1 200 OK
   "data": [
     {
       "key": "mail",
-      "client_ip": "127.0.0.1",
-      "client_user_agent": "Mozilla/5.0 (Macintosh; I...",
-      "agreement": "agreement",
       "agreement_type": "default",
       "source": "sso:api:register",
       "created_at": "2021-12-09T10:29:37.000000Z"
@@ -723,25 +901,78 @@ HTTP/1.1 200 OK
     "perPage": 10,
     "total": 11,
     "sort": "created_at",
-    "predicate": []
+    "filter": []
   }
 }
 
 ```
 
-### GET /api/users/{{id}}/optins/agreement
+### PUT /api/users/{{id}}/optins/{{key}}
+
+Create new optin agreement
+
+`{{id}}` - user id
+`{{key}}` - optin key
+
+Request:
+```json=
+PUT {{uri}}/api/users/{{id}}/optins/{{key}}
+Authorization: Bearer {{admin_token}}
+X-Client-Ip: {{client_ip}}
+X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "agreement_type": "default",
+    "source": "sso:front:register"
+}
+```
+
+- `agreement_type` - optional, string, available values `default`, `auto`, default value `default`
+  - `default` - When user have an option to not agree for the optin. Usually, when there is a checkbox in UI for the optin and user can proceed without checkin it.
+  - `auto` - When user can not have an option for disagree.
+- `source` - optional, string, additional param to track optin source eg. `osc:order:2356`
+
+Request with curl:
+```shell
+curl\
+ -X POST\
+ -H 'Authorization: Bearer {{admin_token}}'\
+ -H 'X-Client-Ip: {{client_ip}}'\
+ -H 'X-Client-User-Agent: {{client_user_agent}}'\
+ -d '{"agreement_type":"default","source":"sso:front:register"}'\
+ '{{uri}}/api/users/{{id}}/optins/{{key}}'
+```
+
+Response:
+```http
+HTTP/1.1 201 Created
+...
+
+{
+  "success": true,
+}
+```
+
+### DELETE /api/users/{{id}}/optins/{{key}}
 
 Lists all consented optins
 
 `{{id}}` - user id
+`{{key}}` - optin key
 
 Request:
-```json=
+```http
 GET {{uri}}/api/users/{{id}}/optins/log
 Authorization: Bearer {{admin_token}}
 X-Client-Ip: {{client_ip}}
 X-Client-User-Agent: {{client_user_agent}}
+
+{
+    "source": "sso:front:register"
+}
 ```
+
+- `source` - optional, string, additional param to track optin source eg. `osc:order:2356`
 
 Request with curl:
 ```shell
@@ -749,34 +980,18 @@ curl\
  -H 'Authorization: Bearer {{admin_token}}'\
  -H 'X-Client-Ip: {{client_ip}}'\
  -H 'X-Client-User-Agent: {{client_user_agent}}'\
- '{{uri}}/api/users/{{id}}/optins/agreement'
+ '{{uri}}/api/users/{{id}}/optins/{{key}}'\
+ -d '{"source":"sso:front:register"}'\
+ '{{uri}}/api/users/{{id}}/optins/{{key}}'
 ```
 
 Response:
 ```http
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 ...
 
 {
   "success": true,
-  "data": [
-    {
-      "key": "mail",
-      "client_ip": "127.0.0.1",
-      "client_user_agent": "Mozilla/5.0 (Macintosh; I...",
-      "agreement": "agreement",
-      "agreement_type": "default",
-      "source": "sso:api:register",
-      "created_at": "2021-12-09T10:29:37.000000Z"
-    },
-    ...
-  ],
-  "links": {
-    "self": {
-      "href": "{{uri}}/api/users/{{id}}/optins",
-      "method": "GET"
-    }
-  }
 }
 ```
 
